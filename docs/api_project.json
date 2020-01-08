@@ -1,0 +1,1 @@
+{  "name": "doankhoa",  "version": "0.1.0",  "description": "Huong dan su dung api",  "title": "API DOCUMENT",  "url": "localhost:5000",  "sampleUrl": false,  "defaultVersion": "0.0.0",  "apidoc": "0.3.0",  "generator": {    "name": "apidoc",    "time": "2020-01-03T00:47:50.530Z",    "url": "http://apidocjs.com",    "version": "0.19.0"  }}

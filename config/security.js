@@ -1,5 +1,5 @@
 const rateLimit = require("express-rate-limit")
-const setup = (app) => {
+module.exports = (app) => {
     //  Defense DoS 
     const apiLimiter = rateLimit({
         windowMs: 15 * 60 * 1000, // 15 minutes
@@ -7,4 +7,3 @@ const setup = (app) => {
     });
     app.use("/", apiLimiter);
 }
-module.exports = setup
