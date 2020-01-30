@@ -3,15 +3,6 @@ const bcrypt = require('bcrypt')
 
 const SALT_WORK_FACTOR = 10;
 const schema = mongoose.Schema({
-
-    firstname: {
-        type: String,
-        required: true
-    },
-    lastname: {
-        type: String,
-        required: true
-    },
     email: {
         type: String,
         required: true,
