@@ -1,41 +1,19 @@
 const mongoose=require('mongoose');
 const Schema=mongoose.Schema;
 
-const managerNews=mongoose.Schema({
-    code:{
-        type: String,
-        required:true
-    },
-    title:{
-        type:String,
-        required:true
-    },
-    writer:{
-        type:Date,
-        required:true
-    },
-    content:{
-        type:String,
-        required:true
-    },
-    createdAt:{
-        type:String,
-        required:true
-   }
-})
-
 const schema= new mongoose.Schema({
     code:{
         type:String,
-        required:true
+        required:[true,'Code is empty'],
+        unique:true
     },
     name:{
         type:String,
-        required:true
+        required:[true,'Name is empty']
     },
     desc:{
         type:String,
-        required:true
+        required:[true,'Description is empty']
     },
     date:{
         type:Date,
@@ -65,10 +43,11 @@ const schema= new mongoose.Schema({
             required:true
         }
     }],
-    news:[{
-        new:{
+    news:[
+        {
             type:Schema.Types.ObjectId,
             ref:'News'
         }
-    }] 
+    ] 
 })
+module.exports = mongoose.model('Event', schema);

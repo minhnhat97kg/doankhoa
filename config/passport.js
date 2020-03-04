@@ -4,7 +4,7 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local');
 const jwtStrategy = require('passport-jwt').Strategy
 const extractJwt = require('passport-jwt').ExtractJwt
-const User = require('../models/user/model')
+const User = require('../models/user.model')
 var JwtStrategy = require('passport-jwt').Strategy
 var ExtractJwt = require('passport-jwt').ExtractJwt
 

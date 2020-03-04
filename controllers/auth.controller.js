@@ -1,9 +1,9 @@
 const Joi = require('joi')
 const passport = require('passport')
 const bcrypt = require('bcrypt');
-const config = require('../../config/config')
+const config = require('../config/config')
 const jwt = require('jsonwebtoken')
-const User = require('../user/model')
+const User = require('../models/user.model')
 
 
 
