@@ -31,7 +31,7 @@ const schema= new mongoose.Schema({
         participant:{
             type:Schema.Types.ObjectId,
             ref:'Student'
-        }, 
+        },
         status:{
             type:Boolean,
             default:false
@@ -48,6 +48,6 @@ const schema= new mongoose.Schema({
             type:Schema.Types.ObjectId,
             ref:'News'
         }
-    ] 
+    ]
 })
 module.exports = mongoose.model('Event', schema);

@@ -1,4 +1,5 @@
 const Joi = require('joi')
+const ErrorHandler = require('../helpers/error')
 const passport = require('passport')
 const bcrypt = require('bcrypt');
 const config = require('../config/config')
@@ -8,7 +9,6 @@ const User = require('../models/user.model')
 
 
 module.exports.register = async(req, res, next) => {
-    console.log(req.body)
     Joi.validate(req.body, Joi.object({
 
         firstname: Joi.string(),
@@ -19,12 +19,11 @@ module.exports.register = async(req, res, next) => {
     }), (err, user) => {
         //Check Error of validate
         if (err)
-            res.json(err)
-        
+            throw new ErrorHandler(401,"Unauthorized")
         User.create(user, (err, user) => {
             //Check when model is created 
             if (err)
-                res.json(err)
+            throw new ErrorHandler(403,"Error when create user, try again")
                 //Success
             res.json(user)
         })
@@ -42,14 +41,11 @@ module.exports.login =(req, res,next) => {
 
     passport.authenticate('login',(err,user,info)=>{
         if(err){
-            return next(err)
+            throw new ErrorHandler(401,err)
         }
         //Send error message
-        if(!user){
-            console.log(user)
-            res.status(401).send(info)
-            return
-        }
+        if(!user)
+            throw new ErrorHandler(401,"Unauthorized")
         let token = generateToken(user._id)
         res.status(200).json({ user, token })
 
