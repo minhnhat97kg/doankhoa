@@ -44,3 +44,15 @@ module.exports.index = (req, res, next) => {
 		res.json(data)
 	})
 }
+module.exports.delete = (req, res, next) => {
+	Model.findById(req.params['id'], (err, data) => {
+		if (err) throw new ErrorHandler(400, err)
+		fs.unlink(data.path, (err) => {
+			if (err) throw new ErrorHandler(400, err)
+			Model.deleteOne({ _id: data._id }, (err) => {
+				if (err) throw new ErrorHandler(400, err)
+				res.status(200).json({ message: 'Delete done' })
+			})
+		})
+	})
+}
