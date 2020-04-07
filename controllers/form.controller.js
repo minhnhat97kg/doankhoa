@@ -16,14 +16,14 @@ module.exports.upload = (req, res, next) => {
 	})
 
 	form.parse(req, (err, field, files) => {
-		if (err) throw new ErrorHandler(400, err)
+		if (err) return next(new ErrorHandler(400, err))
 		//Add title to Model instance
 		model.title = field.title
 		model.save((err, data) => {
 			if (err)
 				fs.unlink(data.path, (err) => {
 					if (err) {
-						throw new ErrorHandler(400, err)
+						return next(new ErrorHandler(400, err))
 					}
 				})
 			res.json({ data })
@@ -33,24 +33,24 @@ module.exports.upload = (req, res, next) => {
 
 module.exports.download = (req, res, next) => {
 	Model.findById(req.params['id'], (err, data) => {
-		if (err) next(err)
+		if (err) return next(new ErrorHandler(400, err))
 		if (data.path) res.download(data.path, data.name)
-		else throw new ErrorHandler(400, err)
+		else return next(new ErrorHandler(400, err))
 	})
 }
 module.exports.index = (req, res, next) => {
 	Model.find({}, (err, data) => {
-		if (err) throw new Error('Internal server error')
+		if (err) return next(new Error('Internal server error'))
 		res.json(data)
 	})
 }
 module.exports.delete = (req, res, next) => {
 	Model.findById(req.params['id'], (err, data) => {
-		if (err) throw new ErrorHandler(400, err)
+		if (err) return next(new ErrorHandler(400, err))
 		fs.unlink(data.path, (err) => {
-			if (err) throw new ErrorHandler(400, err)
+			if (err) return next(new ErrorHandler(400, err))
 			Model.deleteOne({ _id: data._id }, (err) => {
-				if (err) throw new ErrorHandler(400, err)
+				if (err) return next(new ErrorHandler(400, err))
 				res.status(200).json({ message: 'Delete done' })
 			})
 		})
